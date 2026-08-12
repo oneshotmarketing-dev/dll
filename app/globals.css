@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #030712;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  /* Subtle blue-grey dot texture on the canvas (DESIGN.md §6) — atmosphere, not noise. */
+  .canvas-texture {
+    background-image: radial-gradient(rgba(150, 169, 206, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Glowing Libre Caslon accent word (DESIGN.md §7). Only the accent word glows. */
+  .accent-glow {
+    font-family: var(--font-caslon), Georgia, serif;
+    font-style: italic;
+    color: #efe0c6;
+    text-shadow: 0 0 24px rgba(197, 163, 107, 0.45);
+  }
+  /* Gradient variant used in several exports (white → gold clip). */
+  .accent-gradient {
+    font-family: var(--font-caslon), Georgia, serif;
+    font-style: italic;
+    background: linear-gradient(180deg, #ffffff 0%, #c5a36b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(197, 163, 107, 0.5));
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Visible gold focus ring on every interactive element (DESIGN.md §8). */
+  .focus-gold {
+    @apply outline-none focus-visible:ring-1 focus-visible:ring-gold focus-visible:ring-offset-0;
+  }
+
+  /* Responsive section vertical rhythm — the ONE place section padding is
+     defined. Mobile 48px → md 64px → lg 96px (desktop unchanged). Every
+     section uses .section-y instead of a fixed py value. */
+  .section-y {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+}
+
+@layer utilities {
+  /* Reduced glow blur on mobile for performance (kickoff Responsive rules). */
+  @media (max-width: 767px) {
+    .glow-btn-responsive {
+      box-shadow: 0 0 16px rgba(197, 163, 107, 0.4);
+    }
+  }
+}

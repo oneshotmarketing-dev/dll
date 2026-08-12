@@ -1,0 +1,297 @@
+<!DOCTYPE html><html class="dark" lang="en" style="width: 1280px; height: 1819px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dees Language Lounge - Student Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Libre+Caslon+Text:ital,wght@0,400;1,400&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    :root {
+      --black-knight: #030712;
+      --raised-dark: #0B1220;
+      --champagne-gold: #C5A36B;
+    }
+    
+    body {
+      background-color: var(--black-knight);
+      color: #dde2f3;
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+
+    .glass-card {
+      background: var(--raised-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+    }
+
+    .gold-glow {
+      box-shadow: 0 0 15px rgba(197, 163, 107, 0.4);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+
+    .caslon-italic {
+      font-family: 'Libre Caslon Text', serif;
+      font-style: italic;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#c8c8b0",
+            "surface": "#030712",
+            "surface-variant": "#0B1220",
+            "primary-container": "#c5a36b",
+            "on-primary-container": "#50390a",
+            "primary": "#e5c186",
+            "on-surface": "#dde2f3",
+            "on-surface-variant": "#d1c5b6",
+            "outline-variant": "rgba(255,255,255,0.08)",
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "stack-overlap": "-32px",
+            "gutter": "24px",
+            "unit": "4px",
+            "margin-mobile": "20px",
+            "margin-desktop": "64px"
+          },
+          fontFamily: {
+            "headline-lg": ["Anton"],
+            "headline-accent": ["Libre Caslon Text"],
+            "body-md": ["Hanken Grotesk"],
+            "display-xl": ["Anton"]
+          },
+          fontSize: {
+            "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em"}],
+            "body-md": ["16px", {"lineHeight": "24px"}]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="dark overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface border-r border-outline-variant/30 flex flex-col p-6 z-50">
+<div class="mb-10"><div class="flex items-center gap-3 mb-1"><div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center font-headline-lg text-on-primary-container text-2xl gold-glow">D</div><h1 class="font-headline-lg tracking-tighter text-2xl flex flex-col leading-none"><span class="text-primary">Dees</span><span class="text-white text-sm tracking-widest uppercase opacity-90">Language Lounge</span></h1></div></div>
+<nav class="flex flex-col gap-2 flex-grow"><!-- Dashboard (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary bg-primary-container rounded-lg transition-all shadow-[0_0_15px_rgba(197,163,107,0.3)]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">live_tv</span>
+<span class="font-medium">Live Classes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">video_library</span>
+<span class="font-medium">Recordings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-medium">Resources</span>
+</a></nav><div class="mt-auto">
+</div>
+<!-- WhatsApp Support Card -->
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen relative flex flex-col">
+<!-- TopAppBar Anchor -->
+<header class="h-20 flex items-center justify-between px-margin-desktop bg-surface/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant/20">
+<h2 class="font-headline-lg text-2xl tracking-tight">Dashboard</h2>
+<div class="flex items-center gap-6">
+<div class="px-4 py-1.5 glass-card rounded-full flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary gold-glow animate-pulse"></span>
+<span class="text-xs font-bold tracking-widest text-on-surface-variant">EST · TORONTO</span>
+</div>
+<button class="relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-surface"></span>
+</button>
+<div class="flex items-center gap-3 relative">
+<div class="text-right">
+<p class="text-sm font-bold leading-none">Priya Sharma</p>
+<p class="text-[10px] text-primary uppercase tracking-widest mt-1">Student</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="A professional studio portrait of a young South Asian woman named Priya with a friendly and focused expression. She is wearing a modern academic blazer. The background is a soft, deep charcoal gradient with subtle gold light leaks, maintaining a premium and scholarly luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbfTeqdiMNFGzCIbSIVcIy68heiM9k1HZZMn3aYBgfKIbjztHVHLY1q7TEkaXHtwIv3CQEIizJPnLTbDAoXFKgRlvxdX8KJdGhIFeiCIGOBt_PAWxyRZ3ahMMI9vmH4yi5M3z_EEo_WYQYTgqNgteIXODfzsD34lADUyIQV7CMNZuepByI3BUikejERei2J09eNAz53ZK_QwI9A6aAOnQwWC246RIFqN4fUhQw_q2GQ-Oyg9KlzACH">
+</div>
+<div class="absolute top-full right-0 mt-2 w-56 glass-card rounded-xl border border-outline-variant/30 shadow-2xl z-50 overflow-hidden">
+<div class="p-4 border-b border-outline-variant/20">
+<p class="text-sm font-bold">Priya Sharma</p>
+<p class="text-[10px] text-primary uppercase tracking-widest mt-0.5">Student</p>
+</div>
+<div class="p-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/50 hover:text-primary transition-colors relative" href="#">
+<span class="material-symbols-outlined text-lg">manage_accounts</span>
+Profile &amp; Settings
+</a>
+<div class="h-px bg-outline-variant/20 my-1"></div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-500/10 transition-colors relative" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+Log out
+</a>
+</div>
+</div></div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<div class="p-10 space-y-10 overflow-y-auto no-scrollbar pb-20">
+<!-- Welcome Section -->
+<section>
+<h1 class="text-5xl font-light">
+          Good <span class="caslon-italic text-primary">evening</span>, Priya
+        </h1>
+<p class="text-on-surface-variant/60 mt-2 text-lg font-medium">French · TEF Canada Beginners — Batch 12</p>
+</section>
+<!-- Next Class Hero -->
+<div class="space-y-6"><!-- State 1: Upcoming --><section class="glass-card rounded-2xl overflow-hidden relative group"><div class="p-8 flex flex-col md:flex-row justify-between items-end md:items-center gap-8 relative z-10"><div class="space-y-4"><div class="flex items-center gap-2"><span class="text-primary text-[10px] font-bold tracking-[0.2em]">● NEXT LIVE CLASS</span></div><h3 class="text-4xl font-bold tracking-tight max-w-xl">TEF Speaking Practice — Unit 4: Narrative Expressiveness</h3><div class="flex flex-wrap items-center gap-6 text-on-surface-variant"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">schedule</span><span class="text-sm font-medium">Today, 7:00–9:00 PM EST</span></div><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">account_circle</span><span class="text-sm font-medium">Trainer: Kavita</span></div><a class="flex items-center gap-1 text-xs text-primary hover:underline" href="#"><span class="material-symbols-outlined text-sm">calendar_add_on</span> Add to calendar</a></div></div><div class="glass-card px-8 py-6 rounded-2xl border border-primary/30 shadow-[0_0_15px_rgba(197,163,107,0.3)] flex flex-col items-center md:items-end"><span class="text-[10px] font-bold text-primary tracking-[0.2em] uppercase mb-1">Starts in</span><span class="text-3xl font-bold text-white">2h 13m 32s</span></div></div></section><!-- State 2: Live Now --><section class="glass-card rounded-2xl overflow-hidden relative group border-primary/20"><div class="p-8 flex flex-col md:flex-row justify-between items-end md:items-center gap-8 relative z-10"><div class="space-y-4"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span><span class="text-green-500 text-[10px] font-bold tracking-[0.2em]">LIVE NOW</span></div><h3 class="text-4xl font-bold tracking-tight max-w-xl">TEF Speaking Practice — Unit 4: Narrative Expressiveness</h3><div class="flex flex-wrap items-center gap-6 text-on-surface-variant"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">account_circle</span><span class="text-sm font-medium">Trainer: Kavita</span></div></div></div><button class="px-10 py-4 bg-primary text-on-primary font-bold rounded-xl gold-glow transition-all hover:scale-105">Join Class Now</button></div></section><!-- State 3: Ended/Replay --></div>
+<!-- Stat Chips -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="glass-card p-6 rounded-2xl border-l-4 border-l-primary/40 flex justify-between items-center"><div><p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-1">Sessions Completed</p><p class="text-2xl font-bold">12 / 16</p><p class="text-[10px] text-on-surface-variant/40 mt-1">This course</p></div><span class="material-symbols-outlined text-primary/40 text-4xl">task_alt</span></div><div class="glass-card p-6 rounded-2xl border-l-4 border-l-primary/40 flex justify-between items-center"><div><p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-1">Attendance</p><p class="text-2xl font-bold">96%</p><p class="text-[10px] text-on-surface-variant/40 mt-1">11 of 12 attended</p></div><span class="material-symbols-outlined text-primary/40 text-4xl">person_check</span></div><div class="glass-card p-6 rounded-2xl border-l-4 border-l-primary/40 flex justify-between items-center"><div><p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-1">Classes This Week</p><p class="text-2xl font-bold">03</p><p class="text-[10px] text-on-surface-variant/40 mt-1">Next: Today 7:00 PM</p></div><span class="material-symbols-outlined text-primary/40 text-4xl">calendar_month</span></div></section>
+<!-- Two-Column Layout -->
+<section class="grid grid-cols-1 lg:grid-cols-10 gap-10">
+<!-- Upcoming Classes (60%) -->
+<div class="lg:col-span-6 space-y-6"><div class="flex justify-between items-center"><h4 class="text-xl font-bold tracking-tight">Upcoming classes</h4><div class="flex items-center gap-4"><a class="flex items-center gap-1 text-xs font-bold text-primary hover:underline" href="#"><span class="material-symbols-outlined text-sm">download</span> Export calendar</a><a class="text-xs font-bold text-primary hover:underline" href="#">View Schedule</a></div></div><div class="space-y-3"><div class="glass-card p-5 rounded-2xl flex items-center justify-between group hover:border-primary/30 transition-colors"><div class="flex items-center gap-5"><div class="w-14 h-14 rounded-xl bg-surface-variant flex flex-col items-center justify-center border border-outline-variant"><span class="text-[10px] font-bold text-primary">JUL</span><span class="text-xl font-bold">18</span></div><div><p class="font-bold">TEF Speaking Practice — Unit 4</p><p class="text-xs text-on-surface-variant/60">07:00 PM · Kavita</p></div></div><button class="px-6 py-2 bg-primary-container text-on-primary-container text-xs font-bold rounded-full gold-glow">Join</button></div><div class="glass-card p-5 rounded-2xl flex items-center justify-between opacity-60"><div class="flex items-center gap-5"><div class="w-14 h-14 rounded-xl bg-surface-variant flex flex-col items-center justify-center border border-outline-variant"><span class="text-[10px] font-bold">JUL</span><span class="text-xl font-bold">20</span></div><div><p class="font-bold">French Grammar: Le Subjonctif</p><p class="text-xs text-on-surface-variant/60">06:30 PM · Kavita</p></div></div><span class="text-xs font-bold text-on-surface-variant/40">in 2 days</span></div><div class="glass-card p-5 rounded-2xl flex items-center justify-between opacity-60"><div class="flex items-center gap-5"><div class="w-14 h-14 rounded-xl bg-surface-variant flex flex-col items-center justify-center border border-outline-variant"><span class="text-[10px] font-bold">JUL</span><span class="text-xl font-bold">22</span></div><div><p class="font-bold">Listening Comprehension Drill</p><p class="text-xs text-on-surface-variant/60">07:00 PM · Kavita</p></div></div><span class="text-xs font-bold text-on-surface-variant/40">in 4 days</span></div></div></div>
+<!-- Recent Recordings (40%) -->
+<div class="lg:col-span-4 space-y-6">
+<div class="flex justify-between items-center">
+<h4 class="text-xl font-bold tracking-tight">Recent recordings</h4>
+<a class="text-xs font-bold text-primary hover:underline" href="#">See Library</a>
+</div>
+<div class="space-y-4">
+<!-- Recording 1 -->
+<div class="glass-card p-4 rounded-2xl flex gap-4 group cursor-pointer hover:bg-surface-variant/30 transition-colors"><div class="relative w-24 h-16 bg-surface rounded-lg overflow-hidden border border-outline-variant shrink-0 flex items-center justify-center"><span class="material-symbols-outlined text-primary/40 animate-spin">progress_activity</span></div><div class="flex flex-col justify-center"><p class="text-sm font-bold truncate">TEF Speaking Practice — Unit 4</p><p class="text-[10px] text-on-surface-variant/60 mt-1">July 18, 2026 · Just ended</p><div class="mt-1"><span class="px-2 py-0.5 bg-surface-variant/50 text-on-surface-variant/40 text-[10px] font-bold rounded uppercase tracking-widest">Processing</span></div></div></div>
+<!-- Recording 2 -->
+<div class="glass-card p-4 rounded-2xl flex gap-4 group cursor-pointer hover:bg-surface-variant/30 transition-colors"><div class="absolute top-2 right-2 px-1.5 py-0.5 bg-primary/20 border border-primary/30 rounded text-[8px] font-bold text-primary uppercase tracking-widest z-10">New</div>
+<div class="relative w-24 h-16 bg-surface rounded-lg overflow-hidden border border-outline-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-quality thumbnail of a French linguistics lecture. The visual features an instructor pointing at a digital presentation about French verb conjugations. The palette is dominated by deep blues and rich gold highlights, matching a luxury education portal's visual language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM5j76s6HqRtXvbMW-Op0QFDPhWSNdcLGRqXAMrO5yAmOeem7mxF-Hr48nTjIFa9h7s3tv5mCQG5XOzdZzy-Laj7YegynuMH5xXR61_HUKYJAXYmtIsg3nwVtgEIpMavB1lZbaDQyf6wVXTTo76DB2gIYARQO0w4Uderok5KRfAAUHo3xkR5qv_w1OpOZpgZIjfr8-A1OcD0OjY9QlMGGhx8oJRrrQnooNmI4cHU-qLWN6yvLd4EfW">
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/10 transition-colors">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-sm font-bold truncate">Sentence Connectors (B1+)</p>
+<p class="text-[10px] text-on-surface-variant/60 mt-1">July 13, 2026 · 2h 10m</p>
+<span class="text-[10px] text-primary font-bold mt-1 group-hover:underline">Watch</span>
+</div>
+</div>
+<!-- Recording 3 -->
+<div class="glass-card p-4 rounded-2xl flex gap-4 group cursor-pointer hover:bg-surface-variant/30 transition-colors">
+<div class="relative w-24 h-16 bg-surface rounded-lg overflow-hidden border border-outline-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="A digital placeholder for a language tutorial recording showing a close-up of French text being highlighted on a dark tablet screen. The lighting is focused and warm, creating a high-end scholarly mood. Accents of champagne gold illuminate the edges of the device." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZwz9YzhXunmc9iVtLvLgf2fpWsr6lE3Bkdj-15xQLxMC7l2mdDNniutW80-N4e5wQivQiDQDfOJBKA4G0WCctkAzGn-hzjwlMuo3y2lgWLym_GHAUfCained0TkbSszzK1v6rVKygsZzAOzgkHknaAmWkhVhGE0dayreYFwJzw4tgI-pzwLdjRekJ0_G_0K6VxCcHHkiQLy80FY-8YutLobI3jHNoP7GlCRPugdyZDV3R0q_5JWfK">
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/10 transition-colors">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-sm font-bold truncate">Vocabulary: Housing &amp; Life</p>
+<p class="text-[10px] text-on-surface-variant/60 mt-1">July 11, 2026 · 1h 30m</p>
+<span class="text-[10px] text-primary font-bold mt-1 group-hover:underline">Watch</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Resources Section -->
+<section class="space-y-6">
+<div class="flex justify-between items-center">
+<h4 class="text-xl font-bold tracking-tight">Your resources</h4>
+<a class="text-xs font-bold text-primary hover:underline" href="#">Explore all</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Resource 1 -->
+<div class="glass-card p-6 rounded-2xl border-b-2 border-transparent hover:border-primary/50 transition-all group">
+<div class="flex items-start justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+<span class="material-symbols-outlined text-red-500">picture_as_pdf</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/40 bg-surface-variant px-2 py-1 rounded">PDF</span>
+</div>
+<h5 class="font-bold mb-2">Unit 4 — Vocabulaire</h5>
+<p class="text-xs text-on-surface-variant/60 mb-6">Complete list of B1-level expressions for travel and logistics.</p>
+<a class="flex items-center gap-2 text-xs font-bold text-primary" href="#">
+              Open <span class="material-symbols-outlined text-sm">arrow_outward</span>
+</a>
+</div>
+<!-- Resource 2 -->
+<div class="glass-card p-6 rounded-2xl border-b-2 border-transparent hover:border-primary/50 transition-all group">
+<div class="flex items-start justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+<span class="material-symbols-outlined text-blue-500">audio_file</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/40 bg-surface-variant px-2 py-1 rounded">AUDIO</span>
+</div>
+<h5 class="font-bold mb-2">Listening drill 12</h5>
+<p class="text-xs text-on-surface-variant/60 mb-6">Daily podcast exercise focused on native Parisian accents.</p>
+<a class="flex items-center gap-2 text-xs font-bold text-primary" href="#">
+              Open <span class="material-symbols-outlined text-sm">arrow_outward</span>
+</a>
+</div>
+<!-- Resource 3 -->
+<div class="glass-card p-6 rounded-2xl border-b-2 border-transparent hover:border-primary/50 transition-all group">
+<div class="flex items-start justify-between mb-4">
+<div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
+<span class="material-symbols-outlined text-green-500">assignment</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/40 bg-surface-variant px-2 py-1 rounded">EXERCISE</span>
+</div>
+<h5 class="font-bold mb-2">Le passé composé — practice</h5>
+<p class="text-xs text-on-surface-variant/60 mb-6">Interactive quiz covering auxiliary verbs 'être' and 'avoir'.</p>
+<a class="flex items-center gap-2 text-xs font-bold text-primary" href="#">
+              Open <span class="material-symbols-outlined text-sm">arrow_outward</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+    // Micro-interaction for class timer
+    let timeInSeconds = (2 * 3600) + (14 * 60);
+    const countdownEl = document.querySelector('.tracking-wider');
+    
+    if (countdownEl) {
+      setInterval(() => {
+        if (timeInSeconds > 0) {
+          timeInSeconds--;
+          const h = Math.floor(timeInSeconds / 3600);
+          const m = Math.floor((timeInSeconds % 3600) / 60);
+          const s = timeInSeconds % 60;
+          countdownEl.textContent = `Starts in ${h}h ${m}m ${s}s`;
+        }
+      }, 1000);
+    }
+
+    // Interactive button state transitions
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+      btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+      btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+    });
+  </script>
+
+<div class="fixed bottom-8 right-8 z-50 group"><div class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-surface-variant text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Chat with us</div></div>
+
+</body></html>

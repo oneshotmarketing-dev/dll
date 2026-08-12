@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Student portrait placeholder">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a4a34"/>
+      <stop offset="1" stop-color="#241a0e"/>
+    </linearGradient>
+    <radialGradient id="rim1" cx="0.5" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#c5a36b" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c5a36b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="160" height="160" fill="url(#bg1)"/>
+  <rect width="160" height="160" fill="url(#rim1)"/>
+  <g fill="#0b1220" opacity="0.55">
+    <circle cx="80" cy="62" r="26"/>
+    <path d="M32 160c0-30 22-52 48-52s48 22 48 52z"/>
+  </g>
+</svg>

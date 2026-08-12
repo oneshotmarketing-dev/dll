@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Resources | Dees Language Lounge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&amp;family=Anton&amp;family=Libre+Caslon+Text&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#493c00",
+                        "surface-dim": "#0e131f",
+                        "error": "#ffb4ab",
+                        "on-background": "#dde2f3",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-surface": "#dde2f3",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "secondary-container": "#494a38",
+                        "on-primary-container": "#50390a",
+                        "inverse-primary": "#755a29",
+                        "on-error": "#690005",
+                        "on-primary": "#422c00",
+                        "surface-container": "#1a202c",
+                        "surface-container-high": "#242a36",
+                        "inverse-surface": "#dde2f3",
+                        "surface-variant": "#2f3542",
+                        "primary-container": "#c5a36b",
+                        "primary": "#e5c186",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#4e463a",
+                        "on-surface-variant": "#d1c5b6",
+                        "on-tertiary-fixed": "#221b00",
+                        "surface-bright": "#343946",
+                        "tertiary-container": "#c5a600",
+                        "tertiary-fixed": "#ffe16d",
+                        "on-tertiary": "#3a3000",
+                        "on-secondary-fixed-variant": "#474836",
+                        "surface-container-lowest": "#080e1a",
+                        "on-primary-fixed-variant": "#5b4214",
+                        "surface": "#0e131f",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "surface-container-low": "#161c28",
+                        "inverse-on-surface": "#2b303d",
+                        "primary-fixed-dim": "#e5c186",
+                        "tertiary": "#e9c400",
+                        "primary-fixed": "#ffdeaa",
+                        "on-secondary-container": "#b9baa3",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "secondary": "#c8c8b0",
+                        "on-primary-fixed": "#271900",
+                        "background": "#030712",
+                        "surface-tint": "#e5c186",
+                        "surface-container-highest": "#2f3542",
+                        "outline": "#9a8f81",
+                        "on-secondary": "#303221",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "display-xl-mobile": ["Hanken Grotesk"],
+                        "display-xl": ["Hanken Grotesk"],
+                        "headline-accent": ["Hanken Grotesk"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #030712;
+        }
+        .glass-card {
+            background-color: #0B1220;
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(245, 245, 220, 0.05);
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(197, 163, 107, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(197, 163, 107, 0.4);
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant/30 flex flex-col py-8 px-4 z-50">
+<div class="mb-12 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-lg shadow-lg">
+<span class="text-on-primary-container font-black text-2xl">D</span>
+</div>
+<div>
+<div class="text-primary font-extrabold text-sm tracking-tight leading-none uppercase">Dees</div>
+<div class="text-on-surface-variant font-medium text-[10px] tracking-widest uppercase">Language Lounge</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="live_tv">live_tv</span>
+<span class="font-body-md text-body-md">Live Classes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-body-md text-body-md">Recordings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary rounded-xl active-glow transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open" style="font-variation-settings: &quot;FILL&quot; 1;">folder_open</span>
+<span class="font-body-md text-body-md font-semibold">Resources</span>
+</a>
+</nav>
+
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-20 flex items-center justify-between px-12 z-40 backdrop-blur-xl bg-background/80 border-b border-outline-variant/10">
+<div class="flex items-center">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold border border-outline-variant/30 tracking-widest">
+                EST · TORONTO
+            </span>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="text-right">
+<div class="text-on-surface font-semibold text-sm">Priya Sharma</div>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/50 overflow-hidden group-hover:scale-110 transition-transform duration-200">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young South Asian woman with a friendly expression, soft studio lighting, high-end corporate aesthetic, wearing a neutral blazer against a dark, slightly textured background that matches the luxury brutalism theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsJl6r2FLXrS3nrHXB8fSkyXtuYtsggGv0Wl4p-8juMZ9sLx8WBkI0MUw7Bo0Nju5gDsI1AbQFPTjjG-3o8DPH7P6DOoF_z1cANcqPwphle9XTlWh5eP5Yg1lYEma_M_Rgv5ts8CQgd279hEiQDOFfd9y4tfKyDOs7LkqiYMVKB2LaQzzFs3Z-DnaU_7V4ZMnRfNVekzJTtYzCe2WIL0mBo1gjgZkAzY70aAbO2n0RMhtcUGVX0wBi">
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-28 pb-20 px-12 min-h-screen">
+<!-- Page Header -->
+<div class="mb-12">
+<h1 class="text-primary font-extrabold text-5xl tracking-tight mb-2">Resources</h1>
+<p class="text-on-surface font-medium text-lg">Course materials for your batch</p>
+<p class="text-on-surface-variant text-sm mt-1 opacity-70 italic">TEF Canada Beginners — Batch 12</p>
+</div><div class="glass-card p-4 rounded-2xl border border-outline-variant/20 mb-12">
+  <div class="flex flex-row gap-4 items-center w-full"><div class="relative flex-[2] min-w-0"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-lg">search</span><input type="text" placeholder="Search materials..." class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl py-2.5 pl-10 pr-4 text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"></div><div class="flex flex-nowrap gap-3 flex-[2] items-center"><button class="flex-1 flex items-center justify-between gap-3 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface hover:border-primary/50 transition-all whitespace-nowrap"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">book</span><span class="">All Courses</span></div><span class="material-symbols-outlined text-on-surface-variant">keyboard_arrow_down</span></button><button class="flex-1 flex items-center justify-between gap-3 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface hover:border-primary/50 transition-all whitespace-nowrap"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">filter_list</span><span class="">All Types</span></div><span class="material-symbols-outlined text-on-surface-variant">keyboard_arrow_down</span></button><button class="flex-1 flex items-center justify-between gap-3 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface hover:border-primary/50 transition-all whitespace-nowrap"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">calendar_today</span><span class="">All Sessions</span></div><span class="material-symbols-outlined text-on-surface-variant">keyboard_arrow_down</span></button></div></div>
+</div>
+<!-- Section 1 -->
+
+<!-- Section 2 -->
+<section class="mb-16">
+<div class="flex items-center gap-4 mb-6">
+<h2 class="text-on-surface font-bold text-xl whitespace-nowrap">Session 12 — TEF Speaking Practice: Unit 4 · Jul 18</h2>
+<div class="h-[1px] w-full bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card C -->
+<div class="glass-card p-6 rounded-2xl flex flex-col h-full hover:scale-[1.02] transition-all duration-300 relative group">
+<div class="absolute -top-2 -right-2 px-3 py-1 bg-primary text-on-primary text-[10px] font-black uppercase rounded-full shadow-lg z-10" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">New</div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-red-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-400" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant tracking-widest">PDF</span>
+</div>
+</div>
+<h3 class="text-on-surface font-bold text-lg mb-2">Unit 4 — Vocabulaire</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">B1-level expressions for travel and logistics.</p>
+<div class="mt-auto">
+<div class="text-on-surface-variant/60 text-xs mb-4">Jul 18, 2026 · 800 KB</div>
+<button class="w-full py-2 px-4 rounded-lg border border-primary/40 text-primary font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-all group-hover:gold-glow" style="transform: scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Download
+                        </button>
+</div>
+</div>
+<!-- Card D (Audio) -->
+<div class="glass-card p-6 rounded-2xl flex flex-col h-full hover:scale-[1.02] transition-all duration-300 relative group lg:col-span-1">
+<div class="absolute -top-2 -right-2 px-3 py-1 bg-primary text-on-primary text-[10px] font-black uppercase rounded-full shadow-lg z-10" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">New</div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400" data-icon="audio_file">audio_file</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant tracking-widest">AUDIO</span>
+</div>
+</div>
+<h3 class="text-on-surface font-bold text-lg mb-2">Listening Drill 12</h3>
+<p class="text-on-surface-variant text-sm mb-4">Podcast exercise on native Parisian accents.</p>
+<!-- Audio Player Mock -->
+<div class="bg-surface-container-high/40 rounded-xl p-3 mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="play_arrow">play_arrow</span>
+<div class="flex-1 h-1 bg-outline-variant/30 rounded-full relative">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-primary rounded-full" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"></div>
+<div class="absolute top-1/2 left-1/3 -translate-y-1/2 w-3 h-3 bg-on-primary rounded-full border-2 border-primary shadow-sm"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-medium">02:14 / 08:00</span>
+</div>
+</div>
+<div class="mt-auto">
+<div class="text-on-surface-variant/60 text-xs mb-4">Jul 18, 2026 · 12 MB · 8 min</div>
+<button class="w-full py-2 px-4 rounded-lg border border-primary/40 text-primary font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-all group-hover:gold-glow" style="transform: scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Download
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3 -->
+<section class="mb-16">
+<div class="flex items-center gap-4 mb-6">
+<h2 class="text-on-surface font-bold text-xl whitespace-nowrap">Session 11 — French Grammar: Le Subjonctif · Jul 15</h2>
+<div class="h-[1px] w-full bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card E (Video) -->
+<div class="glass-card p-6 rounded-2xl flex flex-col h-full hover:scale-[1.02] transition-all duration-300 relative group border-primary/20">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="video_library" style="font-variation-settings: &quot;FILL&quot; 1;">video_library</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant tracking-widest">VIDEO</span>
+</div>
+</div>
+<h3 class="text-on-surface font-bold text-lg mb-2">Le passé composé — worked examples</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">Pre-recorded walkthrough of auxiliary verbs 'être' and 'avoir'.</p>
+<div class="mt-auto">
+<div class="text-on-surface-variant/60 text-xs mb-4">Jul 15, 2026 · 14 min</div>
+<button class="w-full py-3 px-4 rounded-lg bg-primary text-on-primary font-bold text-sm flex items-center justify-center gap-2 gold-glow hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="play_circle" style="font-variation-settings: &quot;FILL&quot; 1;">play_circle</span>
+                            Watch
+                        </button>
+</div>
+</div>
+<!-- Card F -->
+<div class="glass-card p-6 rounded-2xl flex flex-col h-full hover:scale-[1.02] transition-all duration-300 relative group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-red-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-400" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant tracking-widest">PDF</span>
+</div>
+</div>
+<h3 class="text-on-surface font-bold text-lg mb-2">Subjonctif — Practice Sheet</h3>
+<p class="text-on-surface-variant text-sm mb-6 flex-grow">20 conjugation exercises with answer key.</p>
+<div class="mt-auto">
+<div class="text-on-surface-variant/60 text-xs mb-4">Jul 15, 2026 · 650 KB</div>
+<button class="w-full py-2 px-4 rounded-lg border border-primary/40 text-primary font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-all group-hover:gold-glow" style="transform: scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Download
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Empty State -->
+<section class="mt-12 opacity-40">
+
+</section>
+</main>
+<!-- Floating Branding Decorative Slab -->
+
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple mock for "New" badge fade in
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.absolute.bg-primary').forEach((badge, index) => {
+                badge.style.opacity = '0';
+                badge.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    badge.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    badge.style.opacity = '1';
+                    badge.style.transform = 'translateY(0)';
+                }, 400 + (index * 100));
+            });
+        });
+    </script>
+
+
+
+
+</body></html>

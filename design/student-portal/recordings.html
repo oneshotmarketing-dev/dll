@@ -1,0 +1,351 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Recordings | Student Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Hanken+Grotesk:wght@400;700&amp;family=Libre+Caslon+Text&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "secondary-fixed-dim": "#c8c8b0",
+                  "on-secondary-fixed": "#1b1d0e",
+                  "tertiary-fixed": "#ffe16d",
+                  "surface-tint": "#e5c186",
+                  "on-tertiary-container": "#493c00",
+                  "on-error-container": "#ffdad6",
+                  "surface-bright": "#343946",
+                  "primary-fixed": "#ffdeaa",
+                  "on-surface-variant": "#d1c5b6",
+                  "surface-dim": "#0e131f",
+                  "surface-container-low": "#161c28",
+                  "on-primary-fixed": "#271900",
+                  "surface-container": "#1a202c",
+                  "tertiary-container": "#c5a600",
+                  "surface-variant": "#2f3542",
+                  "on-background": "#dde2f3",
+                  "inverse-primary": "#755a29",
+                  "on-primary-container": "#50390a",
+                  "surface": "#0e131f",
+                  "secondary": "#c8c8b0",
+                  "primary": "#e5c186",
+                  "secondary-fixed": "#e4e4cc",
+                  "on-secondary": "#303221",
+                  "tertiary": "#e9c400",
+                  "error-container": "#93000a",
+                  "tertiary-fixed-dim": "#e9c400",
+                  "on-secondary-container": "#b9baa3",
+                  "error": "#ffb4ab",
+                  "inverse-on-surface": "#2b303d",
+                  "on-tertiary-fixed": "#221b00",
+                  "on-tertiary-fixed-variant": "#544600",
+                  "on-primary-fixed-variant": "#5b4214",
+                  "surface-container-highest": "#2f3542",
+                  "surface-container-high": "#242a36",
+                  "outline": "#9a8f81",
+                  "surface-container-lowest": "#080e1a",
+                  "inverse-surface": "#dde2f3",
+                  "on-primary": "#422c00",
+                  "primary-fixed-dim": "#e5c186",
+                  "on-surface": "#dde2f3",
+                  "outline-variant": "#4e463a",
+                  "on-tertiary": "#3a3000",
+                  "on-secondary-fixed-variant": "#474836",
+                  "on-error": "#690005",
+                  "background": "#0e131f",
+                  "secondary-container": "#494a38",
+                  "primary-container": "#c5a36b"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.125rem",
+                  "lg": "0.25rem",
+                  "xl": "0.5rem",
+                  "full": "0.75rem"
+          },
+          "spacing": {
+                  "margin-desktop": "64px",
+                  "unit": "4px",
+                  "stack-overlap": "-32px",
+                  "gutter": "24px",
+                  "margin-mobile": "20px"
+          },
+          "fontFamily": {
+                  "label-sm": ["Hanken Grotesk"],
+                  "body-lg": ["Hanken Grotesk"],
+                  "headline-lg": ["Anton"],
+                  "display-xl": ["Anton"],
+                  "headline-accent": ["Libre Caslon Text"],
+                  "display-xl-mobile": ["Anton"],
+                  "body-md": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+                  "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                  "display-xl": ["80px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "400"}],
+                  "headline-accent": ["48px", {"lineHeight": "52px", "fontWeight": "400"}],
+                  "display-xl-mobile": ["48px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #030712;
+      color: #dde2f3;
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+    .glass-card {
+      background: #0B1220;
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(245, 245, 220, 0.05);
+    }
+    .gold-glow {
+      box-shadow: 0 0 20px rgba(197, 163, 107, 0.15);
+    }
+    .active-nav-glow {
+      box-shadow: 0 0 15px rgba(229, 193, 134, 0.3);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #4e463a;
+      border-radius: 10px;
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spin-slow 3s linear infinite;
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- Sidebar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/30 backdrop-blur-3xl z-50 bg-surface-container-lowest flex flex-col py-8 px-4">
+<div class="mb-12 px-2">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">STUDENT PORTAL</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 tracking-widest mt-1">ELITE DIGITAL LEARNING</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">live_tv</span>
+<span class="font-body-md text-body-md">Live Classes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-body-md text-body-md">Assignments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary rounded-xl active-nav-glow transition-all duration-300 scale-105" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">video_library</span>
+<span class="font-body-md text-body-md font-bold">Recordings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-body-md text-body-md">Community</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-body-md text-body-md">Resources</span>
+</a>
+</nav>
+
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-20 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-8 z-40">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/30 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">EST · Toronto</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant/20 group cursor-pointer">
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface">Priya Sharma</p>
+<p class="text-[10px] text-on-surface-variant/60 uppercase tracking-widest">Premium Student</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 overflow-hidden group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young South Asian woman with a friendly expression, wearing a stylish blazer in a professional studio setting. The lighting is soft and cinematic with golden highlights, reflecting a premium luxury education brand aesthetic with deep shadows and high-end photographic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKYGuVIs1PXpEmOAu7X1BMiQBqydeOUHBsnygfnikqZz9vbzM9Zmhu8llvTb9TkpNf-w-oluO-iuDMsxFE7CWqEx-CiC4hMR3Htvb1EGDiIwnNsBc0WkL80beoAUwl4IaWQY_UUbPgJmO_6eMlQcQAe3iGak73mTB-2ruTpvNrOsuZb-z_nf3OmxYRxb2Ksg5Bs44MGW3S7asCxWqcjIeVhhXCV7RJOZt3ioZ5uV96hFDzZiZeIRk_">
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-28 pb-16 px-12 max-w-7xl">
+<!-- Page Header -->
+<section class="mb-12">
+<div class="flex items-baseline gap-4">
+<h2 class="font-headline-accent text-headline-accent text-primary">Recordings</h2>
+<span class="text-on-surface-variant/40 font-body-md">—</span>
+<p class="font-body-md text-on-surface-variant/60">TEF Canada Beginners — Batch 12</p>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Replays from your live sessions</p>
+</section>
+<!-- Month Divider -->
+<div class="flex items-center gap-6 mb-8">
+<span class="font-label-sm text-label-sm text-on-surface-variant/50 tracking-[0.2em] whitespace-nowrap">JULY 2026</span>
+<div class="h-[1px] w-full bg-outline-variant/20"></div>
+</div>
+<!-- Recordings Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1: Processing -->
+<div class="glass-card rounded-2xl overflow-hidden opacity-60 flex flex-col group transition-all duration-300">
+<div class="aspect-video bg-surface-container-highest flex items-center justify-center relative">
+<div class="flex flex-col items-center gap-3">
+<span class="material-symbols-outlined text-primary/40 animate-spin-slow text-4xl">progress_activity</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Recording processing</p>
+</div>
+<div class="absolute top-4 right-4 bg-surface-container/80 backdrop-blur px-3 py-1 rounded-full border border-outline-variant/30">
+<p class="text-[10px] font-bold text-on-surface-variant/80 uppercase">Available soon</p>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">TEF Speaking Practice — Unit 4</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">July 18, 2026 · Just ended</p>
+</div>
+</div>
+<!-- Card 2: New -->
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:scale-[1.02] hover:gold-glow transition-all duration-500 relative">
+<div class="aspect-video relative overflow-hidden bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A high-end cinematic wide shot of a French language classroom setup with a sleek laptop, a microphone, and elegant notebooks. The lighting is dark with golden neon accents hitting the edges of the desk. The atmosphere is sophisticated, academic, and modern with a focus on premium digital learning environments." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAlNQ5z6uYvgJi3YNDzSutAjbvtaqw5V5krvIZX19fCvvJvUNNkcddsjHbp7GjwVDcud0rvQSmrdHi0Ivxx4nBwjxBi-RpOP9tMSlWdqQC-waYm_N4mqiWj1QxXmxQYfH681uen4zm4pbmcHBxZaMSzzptYdfBkxRsOgjDQMPnugKZ3PibsDjL_iRKht69JeZqkSYFkIPEzklF53YNzqkOMmQY7vth7LDVNfozLEyBcfHrEZJ9sREaT')"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-[0_0_30px_rgba(197,163,107,0.6)]">
+<span class="material-symbols-outlined text-on-primary text-4xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full shadow-[0_0_15px_rgba(197,163,107,0.4)]">
+<p class="text-[10px] font-bold text-on-primary uppercase tracking-widest">New</p>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">Intro to TEF Canada Structure</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 mb-6">July 15, 2026 · 1h 45m</p>
+<button class="mt-auto w-full py-3 bg-primary text-on-primary font-label-sm rounded-xl hover:brightness-110 transition-all active:scale-[0.98]">
+              Watch
+            </button>
+</div>
+</div>
+<!-- Card 3: Watched -->
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:scale-[1.02] transition-all duration-500">
+<div class="aspect-video relative overflow-hidden bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="Close up of a digital whiteboard displaying complex French sentence structures and grammar notes in elegant gold digital ink on a deep navy background. The image has a sharp, technological feel with subtle light leaks and a luxury brutalist design aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGSPKbeBNLA7czYCA_gZzvm8T_dVMgB16S7ITJ-popJPc8xm-ecmFa6PiibQhpwoa2YpUWpHEHk7Dl2JnuLZWqka0ifvstW0oYFzKOCFRJFYbGEsiLAkPVWaUwQDY3cdwh8obv9ytBZbiKBkpvMc8bwoO4PjiHEJ54QPsptQ0hEWDEhF3meOtrqnp__LsX4jV1211KgDv3tU7iDwVQEMUbz_2BuP2taQT6xWxMO862OgOb9ncNNiVR')"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full border-2 border-primary/50 flex items-center justify-center group-hover:bg-primary transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary text-3xl ml-1">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">Sentence Connectors (B1+)</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 mb-6">July 13, 2026 · 2h 10m</p>
+<button class="mt-auto w-full py-3 border border-primary/40 text-primary font-label-sm rounded-xl hover:bg-primary/10 transition-all active:scale-[0.98]">
+              Watch
+            </button>
+</div>
+</div>
+<!-- Card 4: Watched -->
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:scale-[1.02] transition-all duration-500" style="--mouse-x: 266.2458801269531px; --mouse-y: 196.43310546875px;">
+<div class="aspect-video relative overflow-hidden bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="Stylized architectural photography of modern Parisian housing against a deep twilight sky, filtered with golden and copper tones. The image is part of an educational module on vocabulary, presented in a minimalist, high-contrast, avant-garde style suitable for a luxury educational platform." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzRVD06eLik4vGHwLnB2E2LFCOtQt5Cm0OOXIzRsGz8QP5xQfyT2pPUR0J5TKEgxmIC-7BpDRTByHjDBKNfFGLWOwflADeT0VnuSpBXBMHXimvOIiflefdon3bIcAL2i_o1wA1DHiHKvgIJJA-ZYJqZ4gppb2nvKU1ZCxCfhyzucqSZ85aioQAaX5s1GRBkiXJbCf6ZjR_ibjj3fefRDJLckYaXn1JspwOmffHhxNhAFhmywpUxxFK')"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full border-2 border-primary/50 flex items-center justify-center group-hover:bg-primary transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary text-3xl ml-1">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">Vocabulary: Housing &amp; Life</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 mb-6">July 11, 2026 · 1h 30m</p>
+<button class="mt-auto w-full py-3 border border-primary/40 text-primary font-label-sm rounded-xl hover:bg-primary/10 transition-all active:scale-[0.98]">
+              Watch
+            </button>
+</div>
+</div>
+<!-- Card 5: Unavailable -->
+<div class="glass-card rounded-2xl overflow-hidden opacity-60 flex flex-col group" style="--mouse-x: 131px; --mouse-y: 349.125px;">
+<div class="aspect-video bg-surface-container-highest flex items-center justify-center">
+<div class="flex flex-col items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant/30 text-4xl">videocam_off</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Recording not available</p>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">Orientation &amp; Level Check</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">July 9, 2026 · 1h</p>
+</div>
+</div>
+<!-- Card 6: Watched -->
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:scale-[1.02] transition-all duration-500">
+<div class="aspect-video relative overflow-hidden bg-surface-container-high">
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A minimalist golden welcome icon over a dark mesh background with shallow depth of field. The scene looks like a premium digital welcome screen for a high-end course, using refined textures and sharp geometric lighting to convey a sense of exclusivity and prestige." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFv5kWTFknbfPH-5AzYM-Ni9q-ee-nbGIVP2b1lFwjpHENrjoiPPs1Sw21wQaX360-B9G0BRv5L9XReuRw8jPsZDsQsdE3sXPTPbRNjsTUB7oYRoFssshu6d40veDFwlTQ5VvZaBliGhVbMiMfehGYkCjsDIvfASdWv_fKSsP-dqYz10ekH0PeOOIeFQqK_L7Pex-h7U7kUg4vmKZKUB-C9c68FC-KQXvpAPJxgiHPTgxvJ0LD99wx')"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full border-2 border-primary/50 flex items-center justify-center group-hover:bg-primary transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary text-3xl ml-1">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface mb-1">Welcome &amp; Course Overview</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 mb-6">July 7, 2026 · 1h</p>
+<button class="mt-auto w-full py-3 border border-primary/40 text-primary font-label-sm rounded-xl hover:bg-primary/10 transition-all active:scale-[0.98]">
+              Watch
+            </button>
+</div>
+</div>
+</div>
+<!-- Empty State / Placeholder -->
+<section class="mt-12">
+
+</section>
+</div>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 right-0 -z-10 w-1/2 h-1/2 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-0 left-64 -z-10 w-[40%] h-[40%] bg-surface-container-high/20 blur-[100px] rounded-full pointer-events-none"></div>
+</main>
+<script>
+    // Micro-interactions and effects
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add subtle hover tracking for glass cards
+      const cards = document.querySelectorAll('.glass-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    });
+  </script>
+
+
+</body></html>

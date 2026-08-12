@@ -1,0 +1,266 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Profile &amp; Settings | D'Élite French Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Hanken+Grotesk:wght@400;700&amp;family=Libre+Caslon+Text&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Libre+Caslon+Text:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#494a38",
+                        "secondary": "#c8c8b0",
+                        "tertiary-container": "#c5a600",
+                        "surface-container-highest": "#2f3542",
+                        "secondary-fixed-dim": "#c8c8b0",
+                        "on-tertiary-container": "#493c00",
+                        "primary-fixed": "#ffdeaa",
+                        "on-surface": "#dde2f3",
+                        "on-primary": "#422c00",
+                        "inverse-surface": "#dde2f3",
+                        "secondary-fixed": "#e4e4cc",
+                        "on-background": "#dde2f3",
+                        "tertiary-fixed": "#ffe16d",
+                        "surface-container": "#1a202c",
+                        "background": "#030712",
+                        "on-secondary-fixed": "#1b1d0e",
+                        "on-secondary": "#303221",
+                        "on-primary-container": "#50390a",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "surface-container-high": "#242a36",
+                        "primary-fixed-dim": "#e5c186",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-surface-variant": "#d1c5b6",
+                        "surface-container-lowest": "#080e1a",
+                        "surface-container-low": "#161c28",
+                        "primary-container": "#c5a36b",
+                        "on-primary-fixed-variant": "#5b4214",
+                        "surface": "#0e131f",
+                        "tertiary": "#e9c400",
+                        "outline-variant": "#4e463a",
+                        "inverse-on-surface": "#2b303d",
+                        "on-secondary-container": "#b9baa3",
+                        "surface-dim": "#0e131f",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#343946",
+                        "surface-tint": "#e5c186",
+                        "on-primary-fixed": "#271900",
+                        "primary": "#e5c186",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#221b00",
+                        "error": "#ffb4ab",
+                        "outline": "#9a8f81"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-desktop": "64px",
+                        "stack-overlap": "-32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg": ["Anton"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-accent": ["Libre Caslon Text"],
+                        "display-xl-mobile": ["Anton"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-xl": ["Anton"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-accent": ["48px", {"lineHeight": "52px", "fontWeight": "400"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-xl": ["80px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background-color: #0B1220;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(24px);
+        }
+        .luxury-glow {
+            box-shadow: 0 0 40px -10px rgba(197, 163, 107, 0.15);
+        }
+        .input-glow:focus-within {
+            border-color: #e5c186;
+            box-shadow: 0 0 10px rgba(229, 193, 134, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/30 overflow-x-hidden">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/30 backdrop-blur-3xl shadow-2xl flex flex-col py-8 z-50">
+<!-- Brand Identity -->
+<div class="px-6 mb-12 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-sm">
+<span class="font-headline-lg text-primary-fixed text-2xl">D</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] tracking-[0.2em] text-primary uppercase">Dees</span>
+<span class="font-headline-lg text-lg text-primary tracking-tighter leading-tight">LANGUAGE LOUNGE</span>
+</div>
+</div>
+<!-- Navigation Links (None Active as per prompt) -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-secondary-container/10 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-secondary-container/10 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">live_tv</span>
+<span class="font-body-md">Live Classes</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-secondary-container/10 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">video_library</span>
+<span class="font-body-md">Recordings</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-secondary-container/10 hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-body-md">Resources</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 backdrop-blur-xl border-b border-outline-variant/20 flex justify-between items-center px-12 h-20">
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-secondary-container/30 border border-outline-variant/30 rounded-full flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+<span class="font-label-sm text-[10px] text-primary">EST · Toronto</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end mr-2">
+<span class="font-body-md font-bold text-on-surface">Priya Sharma</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Batch 12 Student</span>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional and warm studio portrait of a young South Asian woman with a friendly expression. She has dark hair styled neatly and is wearing a minimalist cream-colored professional outfit. The background is a soft, out-of-focus high-end educational environment with warm gold lighting accents that align with the Midnight Gilt luxury brutalism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM2kj6Dwi3KNKo1cL8f4CbCzme-3E_hVIwS5kwBeQ0JU-pypMcJKor32hssaDJ79CukeJ1_M2oBHS_obxx4FUwXA95F7r26NQ1cyia0c6GSYJwCNh7A4iXq3AorLoah9qtFcdCD-PdDvYBg6mWlKzojK1-0fhO8mnFsRmhOXL5Vb4OGXMf_2v-YX_JLRFdCYVWj8zlWY1JZGm0OyhOu3BDybKYihvhcQkrposZWWBUW8NBps1tUmcE">
+</div>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<section class="pt-32 pb-24 px-12 flex flex-col items-center">
+<!-- Page Header -->
+<div class="w-full max-w-[720px] mb-12 text-center md:text-left">
+<h1 class="font-headline-lg text-primary mb-2">Profile &amp; Settings</h1>
+<p class="font-body-lg text-on-surface-variant">Manage your account and preferences</p>
+</div>
+<!-- Settings Stack -->
+<div class="w-full max-w-[720px] space-y-6">
+<!-- CARD 1 — Profile -->
+<div class="glass-card luxury-glow p-8 rounded-lg">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<div class="w-[64px] h-[64px] rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up circular avatar of a professional student, featuring soft studio lighting and a clean dark background. The subject is a young woman with a calm, confident gaze. The lighting creates a subtle gold rim effect on her silhouette, perfectly matching the luxury brutalism dark theme of the portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCweFGgI4vKN7-hehdvVIHoXqMAvGVY368r7jWKVjdRc7V5r4WBK470OakNObAXsLeDpylhM14GGDQoKavNCE6DnnpruZQfrGe4sn53EfQy9ooI9Dt9PDaWi_ZixfR5cdezwJMJdEREZema-c4N-12TWmjORW2WVtuYnKxUfm3Sy6awMSff_SaOa5z5BMtUm4qIJbJObJER_ttdYb5-GdWspBfGV_otP9QVJWcxdsSrot7fDDMdduWh">
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-outline hover:border-primary hover:text-primary transition-all font-label-sm uppercase tracking-widest text-[11px]">
+                                Change photo
+                            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="space-y-2">
+<label class="font-label-sm text-primary uppercase text-[10px]">Full name</label>
+<div class="input-glow border border-outline-variant/40 bg-surface-container-lowest p-4 transition-all">
+<input class="bg-transparent border-none w-full focus:ring-0 font-body-md text-on-surface p-0" type="text" value="Priya Sharma">
+</div>
+</div>
+<div class="space-y-2 opacity-60">
+<label class="font-label-sm text-primary uppercase text-[10px]">Email</label>
+<div class="border border-outline-variant/40 bg-surface-container-lowest p-4 flex items-center justify-between cursor-not-allowed">
+<input class="bg-transparent border-none w-full focus:ring-0 font-body-md text-on-surface p-0" disabled="" type="email" value="priya.sharma@gmail.com">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">lock</span>
+</div>
+<p class="font-label-sm text-[10px] text-on-surface-variant">Email is managed by your account sign-in.</p>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-primary uppercase text-[10px]">WhatsApp number</label>
+<div class="flex gap-3">
+<div class="w-20 input-glow border border-outline-variant/40 bg-surface-container-lowest p-4 flex items-center">
+<span class="font-body-md text-on-surface-variant">+1</span>
+</div>
+<div class="flex-1 input-glow border border-outline-variant/40 bg-surface-container-lowest p-4">
+<input class="bg-transparent border-none w-full focus:ring-0 font-body-md text-on-surface p-0" type="text" value="416 555 0187">
+</div>
+</div>
+<p class="font-label-sm text-[10px] text-on-surface-variant">Used by your trainer to reach you.</p>
+</div>
+</div>
+<div class="mt-10 pt-6 border-t border-outline-variant/20 flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">school</span>
+<span class="font-label-sm text-[11px] uppercase tracking-wider">TEF Canada Beginners — Batch 12 · Trainer: Kavita</span>
+</div>
+</div>
+<!-- CARD 2 — Timezone -->
+<div class="glass-card luxury-glow p-8 rounded-lg">
+<div class="space-y-4">
+<label class="font-label-sm text-primary uppercase text-[10px]">Your timezone</label>
+<div class="input-glow border border-outline-variant/40 bg-surface-container-lowest p-4 flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">public</span>
+<span class="font-body-md text-on-surface">Toronto (EST/EDT)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform group-hover:translate-y-0.5">expand_more</span>
+</div>
+<p class="font-label-sm text-[10px] text-on-surface-variant">All class times across the portal are shown in this timezone.</p>
+</div>
+</div>
+<!-- CARD 3 — Account -->
+
+<!-- BOTTOM ACTIONS -->
+<div class="flex items-center justify-end gap-8 pt-8">
+<button class="font-label-sm uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors">
+                        Cancel
+                    </button>
+<button class="bg-primary text-on-primary px-10 py-4 font-label-sm uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(197,163,107,0.3)] hover:scale-105 transition-transform">
+                        Save changes
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Decorative Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] opacity-40">
+
+</div>
+<script>
+        // Micro-interactions for inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.closest('.input-glow')?.classList.add('border-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.closest('.input-glow')?.classList.remove('border-primary');
+            });
+        });
+    </script>
+
+
+</body></html>
