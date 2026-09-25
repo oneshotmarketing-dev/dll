@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabaseServer";
 import { getServiceClient } from "@/lib/supabase";
 import { AddUserButton } from "@/components/admin/AddUserButton";
 import { UsersTable, type UserRow } from "@/components/admin/UsersTable";
+import { StatusTabs } from "@/components/admin/StatusTabs";
 
 interface ActiveEnr {
   student_id: string;
@@ -11,7 +12,8 @@ interface ActiveEnr {
   batch: { title: string | null } | null;
 }
 
-export default async function StudentsPage() {
+export default async function StudentsPage({ searchParams }: { searchParams: { tab?: string } }) {
+  const tab = searchParams.tab === "inactive" ? "inactive" : "active";
   const supabase = createClient();
   const svc = getServiceClient();
   const [{ data }, { data: enr }, { data: batchData }, authList] = await Promise.all([
@@ -48,6 +50,8 @@ export default async function StudentsPage() {
       last_sign_in_at: lastLoginById.get(r.id) ?? null,
     };
   });
+  const inactiveCount = rows.filter((r) => r.status === "inactive").length;
+  const visible = rows.filter((r) => (r.status === "inactive") === (tab === "inactive"));
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -58,7 +62,22 @@ export default async function StudentsPage() {
         </div>
         <AddUserButton role="student" label="Add student" batches={batches} />
       </div>
-      <UsersTable rows={rows} emptyText="No students yet — add your first student." showBatch batches={batches} />
+      <StatusTabs
+        basePath="/admin/students"
+        active={tab}
+        tabs={[
+          { key: "active", label: "Active", count: rows.length - inactiveCount },
+          { key: "inactive", label: "Inactive", count: inactiveCount },
+        ]}
+      />
+      <UsersTable
+        rows={visible}
+        emptyText={
+          rows.length === 0 ? "No students yet — add your first student." : `No ${tab} students.`
+        }
+        showBatch
+        batches={batches}
+      />
     </div>
   );
 }

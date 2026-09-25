@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabaseServer";
 import { AddBatchButton } from "@/components/admin/AddBatchButton";
+import { StatusTabs } from "@/components/admin/StatusTabs";
 
 interface Batch {
   id: string;
@@ -13,7 +14,9 @@ interface Batch {
   tutor: { full_name: string | null } | null;
 }
 
-export default async function BatchesPage() {
+export default async function BatchesPage({ searchParams }: { searchParams: { tab?: string } }) {
+  // "Open" covers every batch that isn't completed (open / running / full / closed).
+  const tab = searchParams.tab === "completed" ? "completed" : "open";
   const supabase = createClient();
   const [{ data: batches }, { data: courses }, { data: tutors }] = await Promise.all([
     supabase
@@ -24,6 +27,8 @@ export default async function BatchesPage() {
     supabase.from("profiles").select("id,full_name").eq("role", "tutor").eq("status", "active").order("full_name"),
   ]);
   const rows = (batches ?? []) as unknown as Batch[];
+  const completedCount = rows.filter((b) => b.status === "completed").length;
+  const visible = rows.filter((b) => (b.status === "completed") === (tab === "completed"));
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
@@ -45,40 +50,54 @@ export default async function BatchesPage() {
       ) : rows.length === 0 ? (
         <p className="rounded-card border border-hairline bg-surface p-8 text-center text-muted">No batches yet — create your first cohort.</p>
       ) : (
-        <div className="overflow-x-auto rounded-card border border-hairline bg-surface">
-          <table className="w-full min-w-[720px] text-sm">
-            <thead>
-              <tr className="border-b border-hairline text-left text-[11px] uppercase tracking-widest text-muted">
-                <th className="px-4 py-3 font-bold">Batch</th>
-                <th className="px-4 py-3 font-bold">Course</th>
-                <th className="px-4 py-3 font-bold">Tutor</th>
-                <th className="px-4 py-3 font-bold">Schedule</th>
-                <th className="px-4 py-3 font-bold">Seats</th>
-                <th className="px-4 py-3 font-bold">Status</th>
-                <th className="px-4 py-3"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((b) => (
-                <tr key={b.id} className="border-b border-hairline/50 last:border-0">
-                  <td className="px-4 py-3 font-medium text-ink">{b.title}</td>
-                  <td className="px-4 py-3 text-muted">{b.course?.title ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted">{b.tutor?.full_name ?? "Unassigned"}</td>
-                  <td className="px-4 py-3 text-muted">{b.schedule_text ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted">{b.seats_total ?? "—"}</td>
-                  <td className="px-4 py-3">
-                    <span className="rounded-pill bg-gold/10 px-2.5 py-0.5 text-[11px] font-bold capitalize text-gold">{b.status}</span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Link href={`/admin/batches/${b.id}`} className="text-xs font-bold text-gold hover:underline focus-gold">
-                      Manage
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <>
+          <StatusTabs
+            basePath="/admin/batches"
+            active={tab}
+            tabs={[
+              { key: "open", label: "Open", count: rows.length - completedCount },
+              { key: "completed", label: "Completed", count: completedCount },
+            ]}
+          />
+          {visible.length === 0 ? (
+            <p className="rounded-card border border-hairline bg-surface p-8 text-center text-muted">No {tab} batches.</p>
+          ) : (
+            <div className="overflow-x-auto rounded-card border border-hairline bg-surface">
+              <table className="w-full min-w-[720px] text-sm">
+                <thead>
+                  <tr className="border-b border-hairline text-left text-[11px] uppercase tracking-widest text-muted">
+                    <th className="px-4 py-3 font-bold">Batch</th>
+                    <th className="px-4 py-3 font-bold">Course</th>
+                    <th className="px-4 py-3 font-bold">Tutor</th>
+                    <th className="px-4 py-3 font-bold">Schedule</th>
+                    <th className="px-4 py-3 font-bold">Seats</th>
+                    <th className="px-4 py-3 font-bold">Status</th>
+                    <th className="px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visible.map((b) => (
+                    <tr key={b.id} className="border-b border-hairline/50 last:border-0">
+                      <td className="px-4 py-3 font-medium text-ink">{b.title}</td>
+                      <td className="px-4 py-3 text-muted">{b.course?.title ?? "—"}</td>
+                      <td className="px-4 py-3 text-muted">{b.tutor?.full_name ?? "Unassigned"}</td>
+                      <td className="px-4 py-3 text-muted">{b.schedule_text ?? "—"}</td>
+                      <td className="px-4 py-3 text-muted">{b.seats_total ?? "—"}</td>
+                      <td className="px-4 py-3">
+                        <span className="rounded-pill bg-gold/10 px-2.5 py-0.5 text-[11px] font-bold capitalize text-gold">{b.status}</span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <Link href={`/admin/batches/${b.id}`} className="text-xs font-bold text-gold hover:underline focus-gold">
+                          Manage
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

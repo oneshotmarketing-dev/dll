@@ -2,8 +2,10 @@ import { createClient } from "@/lib/supabaseServer";
 import { getServiceClient } from "@/lib/supabase";
 import { AddUserButton } from "@/components/admin/AddUserButton";
 import { UsersTable, type UserRow } from "@/components/admin/UsersTable";
+import { StatusTabs } from "@/components/admin/StatusTabs";
 
-export default async function TutorsPage() {
+export default async function TutorsPage({ searchParams }: { searchParams: { tab?: string } }) {
+  const tab = searchParams.tab === "inactive" ? "inactive" : "active";
   const supabase = createClient();
   const svc = getServiceClient();
   const [{ data }, authList] = await Promise.all([
@@ -22,6 +24,8 @@ export default async function TutorsPage() {
     ...r,
     last_sign_in_at: lastLoginById.get(r.id) ?? null,
   }));
+  const inactiveCount = rows.filter((r) => r.status === "inactive").length;
+  const visible = rows.filter((r) => (r.status === "inactive") === (tab === "inactive"));
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -32,7 +36,18 @@ export default async function TutorsPage() {
         </div>
         <AddUserButton role="tutor" label="Add tutor" />
       </div>
-      <UsersTable rows={rows} emptyText="No tutors yet — add your first trainer." />
+      <StatusTabs
+        basePath="/admin/tutors"
+        active={tab}
+        tabs={[
+          { key: "active", label: "Active", count: rows.length - inactiveCount },
+          { key: "inactive", label: "Inactive", count: inactiveCount },
+        ]}
+      />
+      <UsersTable
+        rows={visible}
+        emptyText={rows.length === 0 ? "No tutors yet — add your first trainer." : `No ${tab} tutors.`}
+      />
     </div>
   );
 }
