@@ -1,7 +1,6 @@
 // Builds wa.me deep-links with a prefilled, context-aware message.
-// The number is env-driven (NEXT_PUBLIC_WHATSAPP_NUMBER, digits only).
 
-const RAW_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
+const RAW_NUMBER = "14373141329";
 
 /** Digits only, no "+", spaces or dashes — as wa.me requires. */
 export function whatsappNumber(): string {
