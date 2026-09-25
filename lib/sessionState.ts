@@ -4,7 +4,9 @@
 
 export type SessionState = "upcoming" | "joinable" | "live" | "processing" | "ready" | "unavailable";
 
-export const JOIN_WINDOW_MS = 15 * 60 * 1000; // gold Join opens 15 min before start
+export const JOIN_WINDOW_MS = 24 * 3600 * 1000; // gold Join opens 24h before start
+// The tutor/admin "Start class" button (marks the class live) opens later.
+export const START_CLASS_WINDOW_MS = 15 * 60 * 1000;
 const H48_MS = 48 * 3600 * 1000;
 
 export function computeState(

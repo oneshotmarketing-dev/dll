@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
 import { Icon } from "@/components/ui/Icon";
-import { computeState } from "@/lib/sessionState";
+import { computeState, START_CLASS_WINDOW_MS } from "@/lib/sessionState";
 import { zonedToUtc, utcToZonedParts, weekdayOfDate, addDaysStr, durationLabel } from "@/lib/datetime";
 
 export interface SessionRow {
@@ -282,7 +282,7 @@ export function BatchClasses({
                       </>
                     ) : (
                       <>
-                        {state === "joinable" && !s.actual_start ? (
+                        {state === "joinable" && !s.actual_start && Date.now() >= Date.parse(s.starts_at) - START_CLASS_WINDOW_MS ? (
                           <button
                             type="button"
                             disabled={busy}
