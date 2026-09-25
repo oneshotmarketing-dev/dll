@@ -1,19 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { PromoBar } from "./PromoBar";
 import { Navbar } from "./Navbar";
-import { promoForPath, isPortalPath } from "@/lib/chrome";
+import { isPortalPath } from "@/lib/chrome";
 
-// Promo bar sits ABOVE the sticky nav, so both live in one client wrapper that
-// resolves the route-specific promo content.
+// Marketing header. The promo bar (PromoBar + promoForPath) is hidden on all
+// pages for now; render <PromoBar content={promoForPath(pathname)} /> above the
+// Navbar to bring it back.
 export function SiteHeader() {
   const pathname = usePathname() || "/";
   if (isPortalPath(pathname)) return null;
-  return (
-    <>
-      <PromoBar content={promoForPath(pathname)} />
-      <Navbar />
-    </>
-  );
+  return <Navbar />;
 }
