@@ -472,12 +472,18 @@ function Meta({ label, value, link }: { label: string; value: string; link?: str
   );
 }
 
-// Recording upload: the server signs an upload URL, the browser sends the video
-// straight to Supabase Storage (bypassing Vercel's ~4.5 MB body limit), then the
-// server records it. Returns an error message, or null on success.
-async function uploadRecording(file: File, sessionId: string, title: string): Promise<string | null> {
+// Recording / material upload: the server signs an upload URL, the browser sends
+// the file straight to Supabase Storage (bypassing Vercel's ~4.5 MB body limit),
+// then the server records it. Returns an error message, or null on success.
+async function uploadDirect(
+  endpoint: "/api/admin/recordings" | "/api/admin/resources",
+  bucket: "recordings" | "resources",
+  file: File,
+  sessionId: string,
+  fields: Record<string, string>,
+): Promise<string | null> {
   const post = (body: Record<string, string>) =>
-    fetch("/api/admin/recordings", {
+    fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -488,15 +494,15 @@ async function uploadRecording(file: File, sessionId: string, title: string): Pr
   if (!signRes.ok) return sign.error || "Upload failed.";
 
   const { error } = await createClient()
-    .storage.from("recordings")
-    .uploadToSignedUrl(sign.path, sign.token, file, { contentType: file.type || "video/mp4" });
+    .storage.from(bucket)
+    .uploadToSignedUrl(sign.path, sign.token, file, { contentType: file.type || "application/octet-stream" });
   if (error) {
     return /exceeded|too large|maximum|payload/i.test(error.message)
       ? "File is larger than the storage upload limit. Raise it in Supabase (Storage → Settings)."
       : error.message || "Upload failed.";
   }
 
-  const finRes = await post({ action: "finalize", sessionId, path: sign.path, title });
+  const finRes = await post({ action: "finalize", sessionId, path: sign.path, ...fields });
   const fin = await finRes.json().catch(() => ({}));
   return finRes.ok ? null : fin.error || "Upload failed.";
 }
@@ -524,35 +530,18 @@ function UploadDialog({ session, kind, onClose, onDone }: { session: SessionRow;
     }
     setError(undefined);
     setLoading(true);
-    if (!isMaterial) {
-      const err = await uploadRecording(file, session.id, (title || session.title).trim());
-      setLoading(false);
-      if (err) {
-        setError(err);
-        return;
-      }
-      onDone();
-      return;
-    }
-    const fd = new FormData();
-    fd.append("file", file);
-    fd.append("sessionId", session.id);
-    fd.append("title", (isMaterial ? title : title || session.title).trim());
-    if (isMaterial) {
-      fd.append("type", type);
-      fd.append("description", description);
-    }
-    const res = await fetch("/api/admin/resources", { method: "POST", body: fd });
-    const d = await res.json().catch(() => ({}));
+    const err = isMaterial
+      ? await uploadDirect("/api/admin/resources", "resources", file, session.id, {
+          title: title.trim(),
+          type,
+          description,
+        })
+      : await uploadDirect("/api/admin/recordings", "recordings", file, session.id, {
+          title: (title || session.title).trim(),
+        });
     setLoading(false);
-    if (!res.ok) {
-      setError(
-        d.error === "too_large"
-          ? "File too large (max 50 MB on the current plan)."
-          : res.status === 413
-            ? "File too large to upload through the site (about 4 MB max)."
-            : d.error || "Upload failed.",
-      );
+    if (err) {
+      setError(err);
       return;
     }
     onDone();

@@ -2,9 +2,13 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabaseServer";
 import { getServiceClient } from "@/lib/supabase";
 
-// Admin: upload a material to a session → private 'resources' bucket + a
-// resources row. Resolves the course's default lesson (creating one if needed)
-// so the FK is satisfied without a curriculum builder.
+// Admin + tutor: add a material to a session → private 'resources' bucket + a
+// resources row. Like recordings, the file never passes through this function
+// (Vercel caps request bodies at ~4.5 MB), so it's a two-step flow:
+//   action "sign"     → a signed upload URL; the browser uploads straight to Storage.
+//   action "finalize" → resolves the course's default lesson (creating one if
+//                        needed, so the FK is satisfied without a curriculum
+//                        builder) and inserts the resources row.
 export async function POST(req: Request) {
   const supabase = createClient();
   const {
@@ -13,16 +17,12 @@ export async function POST(req: Request) {
   if (!user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
   const { data: me } = await supabase.from("profiles").select("role").eq("id", user.id).single();
 
-  const form = await req.formData();
-  const file = form.get("file");
-  const sessionId = String(form.get("sessionId") ?? "");
-  const title = String(form.get("title") ?? "").trim();
-  const type = String(form.get("type") ?? "");
-  const description = String(form.get("description") ?? "").trim();
-  if (!(file instanceof File) || !sessionId || !title || !["pdf", "audio", "video"].includes(type)) {
+  const body = await req.json().catch(() => null);
+  const action = body?.action;
+  const sessionId = String(body?.sessionId ?? "");
+  if (!sessionId || (action !== "sign" && action !== "finalize")) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
-  if (file.size > 50 * 1024 * 1024) return NextResponse.json({ error: "too_large" }, { status: 400 });
 
   const svc = getServiceClient();
   if (!svc) return NextResponse.json({ error: "server_not_configured" }, { status: 500 });
@@ -34,6 +34,24 @@ export async function POST(req: Request) {
   if (!courseId) return NextResponse.json({ error: "bad_session" }, { status: 400 });
   if (me?.role !== "admin" && batch?.tutor_id !== user.id) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
+  }
+
+  if (action === "sign") {
+    const rawExt = (String(body?.fileName ?? "").split(".").pop() || "").toLowerCase();
+    const ext = /^[a-z0-9]{1,5}$/.test(rawExt) ? rawExt : "bin";
+    const path = `${courseId}/${sessionId}/${Date.now()}.${ext}`;
+    const { data, error } = await svc.storage.from("resources").createSignedUploadUrl(path);
+    if (error || !data) return NextResponse.json({ error: error?.message ?? "sign_failed" }, { status: 500 });
+    return NextResponse.json({ path: data.path, token: data.token });
+  }
+
+  // finalize — the path must be one signed for this session.
+  const path = String(body?.path ?? "");
+  const title = String(body?.title ?? "").trim();
+  const type = String(body?.type ?? "");
+  const description = String(body?.description ?? "").trim();
+  if (!path.startsWith(`${courseId}/${sessionId}/`) || path.includes("..") || !title || !["pdf", "audio", "video"].includes(type)) {
+    return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
 
   // Default module + lesson for the course (create if missing).
@@ -50,14 +68,6 @@ export async function POST(req: Request) {
     lessonId = l?.id;
   }
   if (!lessonId) return NextResponse.json({ error: "no_lesson" }, { status: 500 });
-
-  const ext = (file.name.split(".").pop() || "bin").toLowerCase();
-  const path = `${courseId}/${sessionId}/${Date.now()}.${ext}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const { error: upErr } = await svc.storage
-    .from("resources")
-    .upload(path, buffer, { contentType: file.type || "application/octet-stream" });
-  if (upErr) return NextResponse.json({ error: upErr.message }, { status: 500 });
 
   const { error: insErr } = await svc.from("resources").insert({
     lesson_id: lessonId,
