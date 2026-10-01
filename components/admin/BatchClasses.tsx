@@ -472,6 +472,49 @@ function Meta({ label, value, link }: { label: string; value: string; link?: str
   );
 }
 
+// PUT a file to a Supabase signed upload URL (same request supabase-js's
+// uploadToSignedUrl makes) via XHR, because fetch can't report upload progress.
+// Resolves to an error message, or null on success.
+function putToSignedUrl(
+  bucket: string,
+  path: string,
+  token: string,
+  file: File,
+  onProgress?: (pct: number) => void,
+): Promise<string | null> {
+  return new Promise((resolve) => {
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+    const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/upload/sign/${bucket}/${path}?token=${encodeURIComponent(token)}`;
+    const body = new FormData();
+    body.append("cacheControl", "3600");
+    body.append("", file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", url);
+    xhr.setRequestHeader("apikey", key);
+    xhr.setRequestHeader("authorization", `Bearer ${key}`);
+    xhr.setRequestHeader("x-upsert", "false");
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress?.(Math.round((e.loaded / e.total) * 100));
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) return resolve(null);
+      let message = "";
+      try {
+        const j = JSON.parse(xhr.responseText);
+        message = j.message || j.error || "";
+      } catch {}
+      resolve(
+        xhr.status === 413 || /exceeded|too large|maximum|payload/i.test(message)
+          ? "File is larger than the storage upload limit. Raise it in Supabase (Storage → Settings)."
+          : message || "Upload failed.",
+      );
+    };
+    xhr.onerror = () => resolve("Upload failed. Check your internet connection and try again.");
+    xhr.send(body);
+  });
+}
+
 // Recording / material upload: the server signs an upload URL, the browser sends
 // the file straight to Supabase Storage (bypassing Vercel's ~4.5 MB body limit),
 // then the server records it. Returns an error message, or null on success.
@@ -481,6 +524,7 @@ async function uploadDirect(
   file: File,
   sessionId: string,
   fields: Record<string, string>,
+  onProgress?: (pct: number) => void,
 ): Promise<string | null> {
   const post = (body: Record<string, string>) =>
     fetch(endpoint, {
@@ -493,14 +537,8 @@ async function uploadDirect(
   const sign = await signRes.json().catch(() => ({}));
   if (!signRes.ok) return sign.error || "Upload failed.";
 
-  const { error } = await createClient()
-    .storage.from(bucket)
-    .uploadToSignedUrl(sign.path, sign.token, file, { contentType: file.type || "application/octet-stream" });
-  if (error) {
-    return /exceeded|too large|maximum|payload/i.test(error.message)
-      ? "File is larger than the storage upload limit. Raise it in Supabase (Storage → Settings)."
-      : error.message || "Upload failed.";
-  }
+  const upErr = await putToSignedUrl(bucket, sign.path, sign.token, file, onProgress);
+  if (upErr) return upErr;
 
   const finRes = await post({ action: "finalize", sessionId, path: sign.path, ...fields });
   const fin = await finRes.json().catch(() => ({}));
@@ -515,6 +553,8 @@ function UploadDialog({ session, kind, onClose, onDone }: { session: SessionRow;
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
+  const [progress, setProgress] = useState<number | null>(null);
+  const [done, setDone] = useState(false);
 
   const accept = !isMaterial ? "video/*" : type === "pdf" ? ".pdf" : type === "audio" ? "audio/*" : "video/*";
 
@@ -530,25 +570,50 @@ function UploadDialog({ session, kind, onClose, onDone }: { session: SessionRow;
     }
     setError(undefined);
     setLoading(true);
+    setProgress(0);
     const err = isMaterial
-      ? await uploadDirect("/api/admin/resources", "resources", file, session.id, {
-          title: title.trim(),
-          type,
-          description,
-        })
-      : await uploadDirect("/api/admin/recordings", "recordings", file, session.id, {
-          title: (title || session.title).trim(),
-        });
+      ? await uploadDirect(
+          "/api/admin/resources",
+          "resources",
+          file,
+          session.id,
+          { title: title.trim(), type, description },
+          setProgress,
+        )
+      : await uploadDirect(
+          "/api/admin/recordings",
+          "recordings",
+          file,
+          session.id,
+          { title: (title || session.title).trim() },
+          setProgress,
+        );
     setLoading(false);
     if (err) {
+      setProgress(null);
       setError(err);
       return;
     }
-    onDone();
+    // Show the confirmation briefly, then close and refresh the list.
+    setDone(true);
+    setTimeout(onDone, 1500);
+  }
+
+  if (done) {
+    return (
+      <Modal title={isMaterial ? "Add material" : "Add recording"} onClose={onDone}>
+        <div className="flex flex-col items-center gap-3 py-6 text-center">
+          <Icon name="check_circle" filled className="text-5xl text-[#22c55e]" />
+          <p className="font-bold text-ink">{isMaterial ? "Material uploaded" : "Recording uploaded"}</p>
+          <p className="text-sm text-muted">{isMaterial ? "Students can now open it." : "Students can now watch it in Recordings."}</p>
+        </div>
+      </Modal>
+    );
   }
 
   return (
-    <Modal title={isMaterial ? "Add material" : "Add recording"} onClose={onClose}>
+    // Closing is blocked mid-upload so the transfer isn't abandoned half-way.
+    <Modal title={isMaterial ? "Add material" : "Add recording"} onClose={loading ? () => {} : onClose}>
       <p className="mb-4 text-sm text-muted">{session.title}</p>
       <form onSubmit={submit} className="space-y-4">
         <div>
@@ -581,9 +646,20 @@ function UploadDialog({ session, kind, onClose, onDone }: { session: SessionRow;
             className="w-full text-sm text-muted file:mr-3 file:rounded-input file:border-0 file:bg-gold/10 file:px-3 file:py-2 file:text-xs file:font-bold file:uppercase file:tracking-widest file:text-gold"
           />
         </div>
+        {loading && progress !== null ? (
+          <div>
+            <div className="mb-1.5 flex justify-between text-xs text-muted">
+              <span>{progress < 100 ? "Uploading… keep this window open" : "Saving…"}</span>
+              <span className="font-bold text-ink">{progress}%</span>
+            </div>
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-canvas">
+              <div className="h-full rounded-full bg-cta-gradient transition-[width] duration-300" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+        ) : null}
         {error ? <p className="text-sm" style={{ color: "#ffb4ab" }}>{error}</p> : null}
         <button type="submit" disabled={loading} className="w-full rounded-pill bg-cta-gradient py-3 text-xs font-bold uppercase tracking-widest text-canvas shadow-glow-btn disabled:opacity-60 focus-gold">
-          {loading ? "Uploading…" : "Upload"}
+          {loading ? (progress !== null && progress < 100 ? `Uploading… ${progress}%` : "Saving…") : "Upload"}
         </button>
       </form>
     </Modal>
