@@ -105,7 +105,7 @@ export function BatchClasses({
   const [uploadFor, setUploadFor] = useState<{ session: SessionRow; kind: "material" | "recording" } | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
+  const [tab, setTab] = useState<"upcoming" | "past" | "cancelled">("upcoming");
   const [confirmEndId, setConfirmEndId] = useState<string | null>(null);
 
   // Cancel/restore go through the admin route so the Zoom meeting is torn down
@@ -163,9 +163,12 @@ export function BatchClasses({
   const now = Date.now();
   const startMsOf = (s: SessionRow) => Date.parse(s.starts_at);
   const endMsOf = (s: SessionRow) => (s.ends_at ? Date.parse(s.ends_at) : startMsOf(s) + 2 * 3600_000);
-  const upcoming = sessions.filter((s) => now <= endMsOf(s)).sort((a, b) => startMsOf(a) - startMsOf(b));
-  const past = sessions.filter((s) => now > endMsOf(s)).sort((a, b) => startMsOf(b) - startMsOf(a));
-  const visible = tab === "upcoming" ? upcoming : past;
+  // Cancelled sessions get their own tab so they don't clutter Upcoming / Past.
+  const active = sessions.filter((s) => s.status !== "cancelled");
+  const upcoming = active.filter((s) => now <= endMsOf(s)).sort((a, b) => startMsOf(a) - startMsOf(b));
+  const past = active.filter((s) => now > endMsOf(s)).sort((a, b) => startMsOf(b) - startMsOf(a));
+  const cancelled = sessions.filter((s) => s.status === "cancelled").sort((a, b) => startMsOf(a) - startMsOf(b));
+  const visible = tab === "upcoming" ? upcoming : tab === "past" ? past : cancelled;
 
   return (
     <div className="space-y-4">
@@ -197,10 +200,11 @@ export function BatchClasses({
           <div className="flex gap-1 border-b border-hairline">
             <TabButton label="Upcoming" count={upcoming.length} active={tab === "upcoming"} onClick={() => { setTab("upcoming"); setExpandedId(null); }} />
             <TabButton label="Past" count={past.length} active={tab === "past"} onClick={() => { setTab("past"); setExpandedId(null); }} />
+            <TabButton label="Cancelled" count={cancelled.length} active={tab === "cancelled"} onClick={() => { setTab("cancelled"); setExpandedId(null); }} />
           </div>
           {visible.length === 0 ? (
             <p className="rounded-card border border-hairline bg-surface p-6 text-center text-sm text-muted">
-              {tab === "upcoming" ? "No upcoming classes." : "No past classes yet."}
+              {tab === "upcoming" ? "No upcoming classes." : tab === "past" ? "No past classes yet." : "No cancelled classes."}
             </p>
           ) : (
           <div className="space-y-3">
