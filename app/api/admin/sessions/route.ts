@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { findOverlap } from "@/lib/sessionOverlap";
 import { createClient } from "@/lib/supabaseServer";
 import { getServiceClient } from "@/lib/supabase";
 import { createMeeting, deleteMeeting, zoomConfigured } from "@/lib/zoom";
@@ -59,6 +60,11 @@ export async function POST(req: Request) {
   const { data: batch } = await svc.from("batches").select("id,tutor_id").eq("id", batchId).single();
   if (!batch) return NextResponse.json({ error: "bad_batch" }, { status: 400 });
   if (!isAdmin && batch.tutor_id !== user.id) return NextResponse.json({ error: "forbidden" }, { status: 403 });
+
+  // Refuse before creating any Zoom meeting if a new session overlaps an active one
+  // (any batch — they all share one Zoom host) or another session in this request.
+  const conflict = await findOverlap(svc, items);
+  if (conflict) return NextResponse.json({ error: "overlap", conflict }, { status: 409 });
 
   // Create sequentially: one Zoom meeting per session, then insert the row. On
   // any failure we roll back the Zoom meeting we just made so no orphan meetings

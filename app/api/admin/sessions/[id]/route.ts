@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { findOverlap } from "@/lib/sessionOverlap";
 import { createClient } from "@/lib/supabaseServer";
 import { getServiceClient } from "@/lib/supabase";
 import { createMeeting, updateMeeting, deleteMeeting, zoomConfigured } from "@/lib/zoom";
@@ -45,6 +46,9 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const topic = body?.topic ? String(body.topic).trim() || null : null;
     const durationMin = ends_at ? Math.max(1, Math.round((Date.parse(ends_at) - Date.parse(starts_at)) / 60000)) : 120;
 
+    const conflict = await findOverlap(svc, [{ starts_at, ends_at }], params.id);
+    if (conflict) return NextResponse.json({ error: "overlap", conflict }, { status: 409 });
+
     if (sess.zoom_meeting_id && zoomConfigured()) {
       try {
         await updateMeeting(sess.zoom_meeting_id, { topic: title, startTime: starts_at, durationMin, agenda: topic ?? undefined });
@@ -75,7 +79,14 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
       return NextResponse.json({ ok: true });
     }
 
-    // Restore: re-create a meeting if the cancelled one was torn down.
+    // Restore: refuse if its slot is now taken by another active session.
+    const { data: slot } = await svc.from("sessions").select("starts_at,ends_at").eq("id", params.id).single();
+    if (slot) {
+      const conflict = await findOverlap(svc, [slot], params.id);
+      if (conflict) return NextResponse.json({ error: "overlap", conflict }, { status: 409 });
+    }
+
+    // Re-create a meeting if the cancelled one was torn down.
     const patch: Record<string, unknown> = { status: "scheduled" };
     if (!sess.zoom_meeting_id && zoomConfigured()) {
       const { data: full } = await svc

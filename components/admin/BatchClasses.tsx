@@ -60,7 +60,10 @@ function fmt(iso: string, tz: string) {
 }
 
 // Friendly copy for the server error codes the session routes can return.
-function sessionErr(code: unknown): string {
+function sessionErr(code: unknown, conflict?: { title: string; batch: string | null; starts_at: string }, tz = "UTC"): string {
+  if (code === "overlap" && conflict) {
+    return `This overlaps "${conflict.title}"${conflict.batch ? ` (${conflict.batch})` : ""} on ${fmt(conflict.starts_at, tz)}. Classes share one Zoom account, so they can't overlap. Pick another time or cancel the other session first.`;
+  }
   if (code === "zoom_not_configured") return "Zoom isn't connected yet — add the Zoom keys before scheduling.";
   if (code === "zoom_failed") return "Couldn't create the Zoom meeting. Please try again.";
   if (code === "too_many") return "Too many sessions at once — reduce the count.";
@@ -112,12 +115,16 @@ export function BatchClasses({
   // (cancel) or re-created (restore) in step with the DB — never left dangling.
   async function setStatus(id: string, status: string) {
     setBusyId(id);
-    await fetch(`/api/admin/sessions/${id}`, {
+    const res = await fetch(`/api/admin/sessions/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "status", status }),
     });
     setBusyId(null);
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}));
+      window.alert(sessionErr(d.error, d.conflict, tz));
+    }
     router.refresh();
   }
 
@@ -719,7 +726,7 @@ function ScheduleDialog({ batchId, tz, session, onClose, onDone }: { batchId: st
     const d = await res.json().catch(() => ({}));
     setLoading(false);
     if (!res.ok) {
-      setError(sessionErr(d.error));
+      setError(sessionErr(d.error, d.conflict, tz));
       return;
     }
     onDone();
@@ -833,7 +840,7 @@ function GenerateDialog({ batchId, tz, existingCount, onClose, onDone }: { batch
     });
     const d = await res.json().catch(() => ({}));
     setLoading(false);
-    if (!res.ok) return setError(sessionErr(d.error));
+    if (!res.ok) return setError(sessionErr(d.error, d.conflict, tz));
     onDone();
   }
 
